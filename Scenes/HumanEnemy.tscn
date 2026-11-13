@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://Framework/Classes/EnemyBase.gd" id="1_enemy"]
+[ext_resource type="Texture2D" uid="uid://pjc4xcgwwvb1" path="res://Assets/humanSmall.png" id="2_human"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_human"]
+size = Vector2(44, 70)
+
+[node name="HumanEnemy" type="Area2D"]
+script = ExtResource("1_enemy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_human")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_human")

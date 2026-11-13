@@ -16,4 +16,4 @@ func select_plant(plant: PlantData) -> void:
 # Clear the current selection
 func clear_selection() -> void:
 
-	grid_manager.selected_plant = null
+	grid_manager.clear_selection()

@@ -9,6 +9,9 @@ signal collected(amount: int)
 
 
 func _ready() -> void:
+	# Tag orb so grid placement ignores clicks on collectible energy
+	add_to_group("energy_orbs")
+
 	# Allow the particle to receive mouse clicks
 	input_pickable = true
 
@@ -46,6 +49,7 @@ func _on_input_event(
 
 			# Tell the game this particle was collected
 			collect()
+			get_viewport().set_input_as_handled()
 
 
 func collect() -> void:

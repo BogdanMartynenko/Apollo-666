@@ -4,6 +4,9 @@
 # Tracks which cells are occupied and places selected plants.
 
 extends Node2D
+
+signal selection_changed(plant_data: PlantData)
+
 @onready var energy_manager = get_parent().get_node("EnergyManager")
 
 # GRID SETTINGS
@@ -16,6 +19,7 @@ const GRID_ORIGIN: Vector2 = Vector2(100, 100)
 
 # The plant currently selected by the player
 var selected_plant: PlantData = null
+var _hovered_cell: Vector2i = Vector2i(-1, -1)
 
 
 # Stores occupied cells and the plants inside them
@@ -45,6 +49,17 @@ func _draw() -> void:
 			draw_rect(cell, color, true)
 			draw_rect(cell, Color(0.15, 0.35, 0.12), false, 2.0)
 
+	if selected_plant != null and is_cell_valid(_hovered_cell):
+		var hover_rect := Rect2(
+			GRID_ORIGIN + Vector2(_hovered_cell.x, _hovered_cell.y) * CELL_SIZE,
+			CELL_SIZE
+		)
+		var cell_free := not occupied_cells.has(_hovered_cell) or not is_instance_valid(occupied_cells[_hovered_cell])
+		var hover_color := Color(0.7, 1.0, 0.55, 0.28) if cell_free else Color(1.0, 0.3, 0.3, 0.32)
+		var border_color := Color(0.85, 1.0, 0.7, 0.9) if cell_free else Color(1.0, 0.4, 0.4, 0.9)
+		draw_rect(hover_rect, hover_color, true)
+		draw_rect(hover_rect, border_color, false, 3.0)
+
 
 # CONVERT MOUSE POSITION INTO GRID COORDINATES
 func get_cell_from_position(mouse_pos: Vector2) -> Vector2i:
@@ -72,8 +87,17 @@ func is_cell_valid(cell: Vector2i) -> bool:
 func select_plant(plant_data: PlantData) -> void:
 
 	selected_plant = plant_data
+	selection_changed.emit(selected_plant)
+	queue_redraw()
 
-	print("Selected plant: ", selected_plant.plant_name)
+	if selected_plant != null:
+		print("Selected plant: ", selected_plant.plant_name)
+
+
+func clear_selection() -> void:
+	selected_plant = null
+	selection_changed.emit(null)
+	queue_redraw()
 
 
 # PLACE THE SELECTED PLANT IN A CELL
@@ -83,8 +107,10 @@ func place_plant(cell: Vector2i) -> void:
 		return
 
 	if occupied_cells.has(cell):
-		print("Cell already occupied!")
-		return
+		if is_instance_valid(occupied_cells[cell]):
+			print("Cell already occupied!")
+			return
+		occupied_cells.erase(cell)
 
 	if selected_plant == null:
 		print("No plant selected!")
@@ -113,19 +139,69 @@ func place_plant(cell: Vector2i) -> void:
 	plant.occupied_cell = cell
 
 	occupied_cells[cell] = plant
+	plant.tree_exited.connect(_on_plant_tree_exited.bind(cell, plant))
+	clear_selection()
 
 	print("Plant placed at: ", cell)
 
 
+func _on_plant_tree_exited(cell: Vector2i, plant: Node) -> void:
+	if occupied_cells.get(cell) == plant:
+		occupied_cells.erase(cell)
+
+
+func get_lane_center_y(lane: int) -> float:
+	return GRID_ORIGIN.y + lane * CELL_SIZE.y + CELL_SIZE.y / 2.0
+
+
+func get_grid_left_x() -> float:
+	return GRID_ORIGIN.x
+
+
+func get_grid_right_x() -> float:
+	return GRID_ORIGIN.x + COLUMNS * CELL_SIZE.x
+
+
 # HANDLE MOUSE INPUT
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		var new_cell := get_cell_from_position(get_global_mouse_position())
+		if new_cell != _hovered_cell:
+			_hovered_cell = new_cell
+			if selected_plant != null:
+				queue_redraw()
+		return
 
 	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			if selected_plant != null:
+				clear_selection()
+				get_viewport().set_input_as_handled()
+			return
 
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			var mouse_pos := get_global_mouse_position()
 
-			var cell = get_cell_from_position(
-				get_global_mouse_position()
-			)
+			# Let EnergyOrb handle the click without placing on the grid underneath
+			if _is_clicking_energy_orb(mouse_pos):
+				return
+
+			var cell = get_cell_from_position(mouse_pos)
 
 			place_plant(cell)
+
+
+# Check whether an energy orb is under the clicked world position
+func _is_clicking_energy_orb(world_pos: Vector2) -> bool:
+	var space_state := get_world_2d().direct_space_state
+	var query := PhysicsPointQueryParameters2D.new()
+	query.position = world_pos
+	query.collide_with_areas = true
+	query.collide_with_bodies = false
+
+	for hit in space_state.intersect_point(query):
+		var collider = hit.get("collider")
+		if collider is Node and collider.is_in_group("energy_orbs") and not collider.is_queued_for_deletion():
+			return true
+
+	return false

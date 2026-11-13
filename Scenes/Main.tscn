@@ -3,13 +3,46 @@
 [ext_resource type="Script" uid="uid://5562tssc0i5i" path="res://Scenes/Main.gd" id="1_xockq"]
 [ext_resource type="Script" uid="uid://cj7ux58i1m40s" path="res://Framework/Managers/GridManager.gd" id="2_ikv8c"]
 [ext_resource type="Resource" uid="uid://c73sqc8so6q7k" path="res://Assets/PeashooterData.tres" id="2_sfdx7"]
-[ext_resource type="Texture2D" uid="uid://bip0xaxu8041s" path="res://Assets/alinmini.jpg" id="2_xcqw3"]
 [ext_resource type="Resource" uid="uid://bg11os8rweq4v" path="res://Assets/SunflowerData.tres" id="3_v1gob"]
 [ext_resource type="Script" uid="uid://btrr77l714jct" path="res://Scenes/selector.gd" id="3_xockq"]
 [ext_resource type="Script" uid="uid://dwgjgom246uaw" path="res://Scenes/BatteryUI.gd" id="7_bmxlf"]
 [ext_resource type="Script" uid="uid://dsb6fjpo22e8k" path="res://Scenes/energy_manager.gd" id="7_jw32o"]
 [ext_resource type="Script" uid="uid://cys2pgqceaocr" path="res://Scenes/EnergySpawner.gd" id="8_vy5pj"]
 [ext_resource type="PackedScene" uid="uid://c53dlof4ti8eq" path="res://Scenes/EnergyOrb.tscn" id="9_bmxlf"]
+[ext_resource type="Script" path="res://Scenes/EnemySpawner.gd" id="11_espawn"]
+[ext_resource type="PackedScene" path="res://Scenes/HumanEnemy.tscn" id="12_human"]
+[ext_resource type="PackedScene" path="res://Scenes/ShopCard.tscn" id="13_card"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud_panel"]
+bg_color = Color(0.08, 0.11, 0.14, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.24, 0.34, 0.42, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_bg"]
+bg_color = Color(0.12, 0.15, 0.2, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.28, 0.34, 0.42, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_fill"]
+bg_color = Color(0.95, 0.78, 0.16, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="Node2D" type="Node2D" unique_id=1022261163]
 script = ExtResource("1_xockq")
@@ -29,37 +62,117 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=254110928]
+[node name="ShopPanel" type="PanelContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 100.0
+offset_top = 8.0
+offset_right = 552.0
+offset_bottom = 90.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud_panel")
 
-[node name="PeashooterButton" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=781971849]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/ShopPanel"]
 layout_mode = 2
-text = "Peashooter"
-icon = ExtResource("2_xcqw3")
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 5
 
-[node name="SunflowerButton" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=341461729]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/ShopPanel/MarginContainer" unique_id=254110928]
 layout_mode = 2
-text = "Sunflower"
+theme_override_constants/separation = 10
 
-[node name="BatteryUI" type="VBoxContainer" parent="CanvasLayer/Control" unique_id=1468795032]
+[node name="PeashooterButton" parent="CanvasLayer/Control/ShopPanel/MarginContainer/HBoxContainer" unique_id=781971849 instance=ExtResource("13_card")]
+layout_mode = 2
+
+[node name="SunflowerButton" parent="CanvasLayer/Control/ShopPanel/MarginContainer/HBoxContainer" unique_id=341461729 instance=ExtResource("13_card")]
+layout_mode = 2
+
+[node name="BatteryPanel" type="PanelContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
-offset_left = 850.0
-offset_top = 20.0
-offset_right = 1050.0
-offset_bottom = 74.0
+offset_left = 590.0
+offset_top = 8.0
+offset_right = 820.0
+offset_bottom = 90.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/BatteryPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="BatteryUI" type="VBoxContainer" parent="CanvasLayer/Control/BatteryPanel/MarginContainer" unique_id=1468795032]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+alignment = 1
 script = ExtResource("7_bmxlf")
 
-[node name="EnergyLabel" type="Label" parent="CanvasLayer/Control/BatteryUI" unique_id=1618361042]
+[node name="EnergyLabel" type="Label" parent="CanvasLayer/Control/BatteryPanel/MarginContainer/BatteryUI" unique_id=1618361042]
 layout_mode = 2
-text = "Battery 0/1000"
+theme_override_font_sizes/font_size = 14
+text = "Battery: 50 / 1000"
 
-[node name="EnergyBar" type="ProgressBar" parent="CanvasLayer/Control/BatteryUI" unique_id=1284988184]
-custom_minimum_size = Vector2(200, 20)
+[node name="EnergyBar" type="ProgressBar" parent="CanvasLayer/Control/BatteryPanel/MarginContainer/BatteryUI" unique_id=1284988184]
+custom_minimum_size = Vector2(204, 22)
 layout_mode = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bar_fill")
 max_value = 1000.0
+show_percentage = false
+
+[node name="HintLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 836.0
+offset_top = 24.0
+offset_right = 1130.0
+offset_bottom = 74.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.8, 0.86, 0.9, 0.85)
+theme_override_font_sizes/font_size = 13
+text = "Click a card, then click a grid tile.
+Right-click to cancel. Click orbs for energy."
+
+[node name="GameOverPanel" type="PanelContainer" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -65.0
+offset_right = 160.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GameOverPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="GameOverLabel" type="Label" parent="CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Humans reached the alien base!"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play Again"
 
 [node name="EnergyManager" type="Node" parent="." unique_id=1556433249]
 script = ExtResource("7_jw32o")
@@ -67,3 +180,7 @@ script = ExtResource("7_jw32o")
 [node name="EnergySpawner" type="Node" parent="." unique_id=1460298541]
 script = ExtResource("8_vy5pj")
 energy_orb_scene = ExtResource("9_bmxlf")
+
+[node name="EnemySpawner" type="Node" parent="."]
+script = ExtResource("11_espawn")
+enemy_scene = ExtResource("12_human")

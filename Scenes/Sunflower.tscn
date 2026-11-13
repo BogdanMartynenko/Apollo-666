@@ -1,9 +1,20 @@
 [gd_scene format=3 uid="uid://c8a6jvcbsnkwj"]
 
-[ext_resource type="Texture2D" uid="uid://pjc4xcgwwvb1" path="res://Assets/humanSmall.png" id="1_h71mq"]
-[ext_resource type="Script" uid="uid://b3hy5ssjsfe5v" path="res://Scenes/Peashooter.gd" id="2_yydxm"]
+[ext_resource type="Texture2D" path="res://Assets/tiktok attraction.png" id="1_tiktok"]
+[ext_resource type="Script" path="res://Scenes/TikTokAttraction.gd" id="2_tiktok"]
 
-[node name="Plant1" type="Sprite2D" unique_id=1754296410]
-position = Vector2(55, -57)
-texture = ExtResource("1_h71mq")
-script = ExtResource("2_yydxm")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tiktok"]
+size = Vector2(56, 70)
+
+[node name="TikTokAttraction" type="Node2D" unique_id=1754296410]
+script = ExtResource("2_tiktok")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("1_tiktok")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_tiktok")

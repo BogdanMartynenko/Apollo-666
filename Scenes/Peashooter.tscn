@@ -1,9 +1,24 @@
 [gd_scene format=3 uid="uid://bbbm6u77ohtwj"]
 
-[ext_resource type="Texture2D" uid="uid://bl875vo4lrqrs" path="res://Apollo-666/Assets/alienpixel.png" id="1_pqog6"]
-[ext_resource type="Script" uid="uid://b3hy5ssjsfe5v" path="res://Apollo-666/Scenes/peashooter.gd" id="2_pqog6"]
+[ext_resource type="Texture2D" uid="uid://bl875vo4lrqrs" path="res://Assets/alienpixel.png" id="1_pqog6"]
+[ext_resource type="Script" uid="uid://b3hy5ssjsfe5v" path="res://Scenes/Peashooter.gd" id="2_pqog6"]
+[ext_resource type="PackedScene" path="res://Scenes/InkProjectile.tscn" id="3_ink"]
 
-[node name="Plant1" type="Sprite2D" unique_id=1754296410]
-position = Vector2(55, -57)
-texture = ExtResource("1_pqog6")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_alien"]
+size = Vector2(56, 70)
+
+[node name="Plant1" type="Node2D" unique_id=1754296410]
 script = ExtResource("2_pqog6")
+ink_projectile_scene = ExtResource("3_ink")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_pqog6")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(28, -4)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_alien")

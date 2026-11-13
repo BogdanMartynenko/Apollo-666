@@ -7,8 +7,12 @@ signal energy_changed(new_amount: int)
 # Battery settings
 @export var max_energy: int = 1000
 
-# Current energy stored in the battery
-var current_energy: int = 0
+# Current energy stored in the battery (starts with 50 like PvZ)
+@export var current_energy: int = 50
+
+
+func _ready() -> void:
+	energy_changed.emit(current_energy)
 
 
 # Add energy to the battery

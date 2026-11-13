@@ -33,5 +33,5 @@ func spawn_energy_orb() -> void:
 	# Add the orb to the main scene
 	get_parent().add_child(orb)
 
-	# Choose a random horizontal position above the grid
-	orb.position = Vector2(randf_range(100, 820), 60)
+	# Choose a random horizontal position just below the top HUD bar
+	orb.position = Vector2(randf_range(100, 820), 96)
