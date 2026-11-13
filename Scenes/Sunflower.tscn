@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c8a6jvcbsnkwj"]
+
+[ext_resource type="Texture2D" uid="uid://pjc4xcgwwvb1" path="res://Assets/humanSmall.png" id="1_h71mq"]
+[ext_resource type="Script" uid="uid://b3hy5ssjsfe5v" path="res://Scenes/Peashooter.gd" id="2_yydxm"]
+
+[node name="Plant1" type="Sprite2D" unique_id=1754296410]
+position = Vector2(55, -57)
+texture = ExtResource("1_h71mq")
+script = ExtResource("2_yydxm")

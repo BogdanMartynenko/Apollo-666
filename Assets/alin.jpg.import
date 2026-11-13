@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpfurgx2lqy4l"
-path="res://.godot/imported/alin.jpg-7723b9733fb99d47c08916193428ade7.ctex"
+path="res://.godot/imported/alin.jpg-892dd62bebc04e59a8b59577ccb2570a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Apollo-666/Assets/alin.jpg"
-dest_files=["res://.godot/imported/alin.jpg-7723b9733fb99d47c08916193428ade7.ctex"]
+source_file="res://Assets/alin.jpg"
+dest_files=["res://.godot/imported/alin.jpg-892dd62bebc04e59a8b59577ccb2570a.ctex"]
 
 [params]
 

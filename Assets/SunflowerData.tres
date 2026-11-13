@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PlantData" format=3 uid="uid://bg11os8rweq4v"]
+
+[ext_resource type="Texture2D" uid="uid://dqiaf8qtogt6c" path="res://Assets/human.png" id="1_qrhsx"]
+[ext_resource type="PackedScene" uid="uid://c8a6jvcbsnkwj" path="res://Scenes/Sunflower.tscn" id="2_kct1e"]
+[ext_resource type="Script" uid="uid://bt6j81fpb3mr6" path="res://Framework/Classes/PlantData.gd" id="3_7vh55"]
+
+[resource]
+script = ExtResource("3_7vh55")
+plant_name = "Ant"
+plant_scene = ExtResource("2_kct1e")
+icon = ExtResource("1_qrhsx")
+metadata/_custom_type_script = "uid://bt6j81fpb3mr6"

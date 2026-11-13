@@ -4,7 +4,7 @@
 # Tracks which cells are occupied and places selected plants.
 
 extends Node2D
-
+@onready var energy_manager = get_parent().get_node("EnergyManager")
 
 # GRID SETTINGS
 const ROWS: int = 5
@@ -88,6 +88,10 @@ func place_plant(cell: Vector2i) -> void:
 
 	if selected_plant == null:
 		print("No plant selected!")
+		return
+		
+	# Pay for the plant using battery energy
+	if not energy_manager.spend_energy(selected_plant.plant_cost):
 		return
 
 	if selected_plant.plant_scene == null:

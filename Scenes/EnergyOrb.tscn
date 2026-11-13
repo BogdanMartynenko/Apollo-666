@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c53dlof4ti8eq"]
+
+[ext_resource type="Script" uid="uid://ddiymy6k41wad" path="res://Scenes/EnergyOrb.gd" id="1_7mvdi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m7mfi"]
+radius = 18.0
+
+[node name="EnergyOrb" type="Area2D" unique_id=2080378277]
+script = ExtResource("1_7mvdi")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1320379882]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=649891968]
+shape = SubResource("CircleShape2D_m7mfi")
