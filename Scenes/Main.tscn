@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dl4sqmsy2w4aw"]
+
+[ext_resource type="Script" uid="uid://5562tssc0i5i" path="res://Apollo-666/Scenes/Main.gd" id="1_xockq"]
+[ext_resource type="Script" uid="uid://cj7ux58i1m40s" path="res://Apollo-666/Framework/Managers/GridManager.gd" id="2_ikv8c"]
+[ext_resource type="Resource" uid="uid://c73sqc8so6q7k" path="res://Apollo-666/Assets/PeashooterData.tres" id="2_sfdx7"]
+[ext_resource type="Texture2D" uid="uid://bip0xaxu8041s" path="res://Apollo-666/Assets/alinmini.jpg" id="2_xcqw3"]
+[ext_resource type="Script" uid="uid://btrr77l714jct" path="res://Apollo-666/Scenes/selector.gd" id="3_xockq"]
+
+[node name="Node2D" type="Node2D" unique_id=1022261163]
+script = ExtResource("1_xockq")
+peashooter_data = ExtResource("2_sfdx7")
+
+[node name="Selector" type="Node" parent="." unique_id=1406873487]
+script = ExtResource("3_xockq")
+
+[node name="GridManager" type="Node2D" parent="." unique_id=1499261951]
+script = ExtResource("2_ikv8c")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1835251266]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=641610710]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=254110928]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PeashooterButton" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=781971849]
+layout_mode = 2
+text = "Peashooter"
+icon = ExtResource("2_xcqw3")

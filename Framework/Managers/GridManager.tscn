@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bx6sop233h8jo"]
+
+[ext_resource type="Script" uid="uid://cj7ux58i1m40s" path="res://Apollo-666/Framework/Managers/GridManager.gd" id="1_ovtts"]
+
+[node name="Node2D" type="Node2D" unique_id=1774808460]
+script = ExtResource("1_ovtts")

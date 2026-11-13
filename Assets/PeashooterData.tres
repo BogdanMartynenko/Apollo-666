@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PlantData" format=3 uid="uid://c73sqc8so6q7k"]
+
+[ext_resource type="Texture2D" uid="uid://bl875vo4lrqrs" path="res://Apollo-666/Assets/alienpixel.png" id="1_wpq00"]
+[ext_resource type="PackedScene" uid="uid://bbbm6u77ohtwj" path="res://Apollo-666/Scenes/Peashooter.tscn" id="2_tiaxo"]
+[ext_resource type="Script" uid="uid://bt6j81fpb3mr6" path="res://Apollo-666/Framework/Classes/PlantData.gd" id="2_wpq00"]
+
+[resource]
+script = ExtResource("2_wpq00")
+plant_name = "Octobro"
+plant_scene = ExtResource("2_tiaxo")
+icon = ExtResource("1_wpq00")
+metadata/_custom_type_script = "uid://bt6j81fpb3mr6"

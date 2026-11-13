@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bbbm6u77ohtwj"]
+
+[ext_resource type="Texture2D" uid="uid://bl875vo4lrqrs" path="res://Apollo-666/Assets/alienpixel.png" id="1_pqog6"]
+[ext_resource type="Script" uid="uid://b3hy5ssjsfe5v" path="res://Apollo-666/Scenes/peashooter.gd" id="2_pqog6"]
+
+[node name="Plant1" type="Sprite2D" unique_id=1754296410]
+position = Vector2(55, -57)
+texture = ExtResource("1_pqog6")
+script = ExtResource("2_pqog6")
