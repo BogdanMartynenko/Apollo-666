@@ -10,13 +10,12 @@ extends Node2D
 @onready var game_over_panel = $CanvasLayer/GameOverPanel
 @onready var restart_button = $CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer/ButtonRow/RestartButton
 @onready var game_over_menu_button = $CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer/ButtonRow/MainMenuButton
-@onready var win_panel = $CanvasLayer/WinPanel
-@onready var win_play_again_button = $CanvasLayer/WinPanel/MarginContainer/VBoxContainer/ButtonRow/PlayAgainButton
-@onready var win_menu_button = $CanvasLayer/WinPanel/MarginContainer/VBoxContainer/ButtonRow/MainMenuButton
 
 # Plant resources
 @export var peashooter_data: PlantData
 @export var sunflower_data: PlantData
+
+var _game_ended: bool = false
 
 
 func _ready() -> void:
@@ -40,10 +39,6 @@ func _ready() -> void:
 		restart_button.pressed.connect(_on_restart_pressed)
 	if game_over_menu_button != null:
 		game_over_menu_button.pressed.connect(_on_main_menu_pressed)
-	if win_play_again_button != null:
-		win_play_again_button.pressed.connect(_on_restart_pressed)
-	if win_menu_button != null:
-		win_menu_button.pressed.connect(_on_main_menu_pressed)
 
 	_refresh_shop_ui()
 
@@ -83,8 +78,9 @@ func _refresh_shop_ui() -> void:
 
 
 func _on_enemy_breached() -> void:
-	if win_panel != null and win_panel.visible:
+	if _game_ended:
 		return
+	_game_ended = true
 	if grid_manager != null:
 		grid_manager.clear_selection()
 	if game_over_panel != null:
@@ -93,13 +89,17 @@ func _on_enemy_breached() -> void:
 
 
 func _on_scrollium_full() -> void:
-	if game_over_panel != null and game_over_panel.visible:
+	if _game_ended:
 		return
+	_game_ended = true
 	if grid_manager != null:
 		grid_manager.clear_selection()
-	if win_panel != null:
-		win_panel.visible = true
-	get_tree().paused = true
+	call_deferred("_go_to_victory_screen")
+
+
+func _go_to_victory_screen() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://Scenes/VictoryScreen.tscn")
 
 
 func _on_restart_pressed() -> void:
