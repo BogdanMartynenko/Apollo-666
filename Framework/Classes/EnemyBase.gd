@@ -15,6 +15,7 @@ var is_distracted: bool = false
 
 @onready var sprite: Sprite2D = get_node_or_null("Sprite2D")
 var _hit_flash_timer: float = 0.0
+var _is_dead: bool = false
 
 
 func _ready() -> void:
@@ -79,5 +80,8 @@ func _trigger_hit_flash() -> void:
 
 
 func die() -> void:
+	if _is_dead:
+		return
+	_is_dead = true
 	died.emit(self)
 	queue_free()

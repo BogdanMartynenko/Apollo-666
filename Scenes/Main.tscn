@@ -44,6 +44,30 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gameover_panel"]
+bg_color = Color(0.1, 0.09, 0.12, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.85, 0.32, 0.32, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_win_panel"]
+bg_color = Color(0.08, 0.13, 0.12, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.38, 0.9, 0.52, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
 [node name="Node2D" type="Node2D" unique_id=1022261163]
 script = ExtResource("1_xockq")
 peashooter_data = ExtResource("2_sfdx7")
@@ -127,12 +151,23 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_bar_fill")
 max_value = 1000.0
 show_percentage = false
 
+[node name="WaveLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 836.0
+offset_top = 12.0
+offset_right = 1130.0
+offset_bottom = 36.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.35, 1)
+theme_override_font_sizes/font_size = 15
+text = "Humans Defeated: 0 / 12"
+
 [node name="HintLabel" type="Label" parent="CanvasLayer/Control"]
 layout_mode = 0
 offset_left = 836.0
-offset_top = 24.0
+offset_top = 40.0
 offset_right = 1130.0
-offset_bottom = 74.0
+offset_bottom = 88.0
 mouse_filter = 2
 theme_override_colors/font_color = Color(0.8, 0.86, 0.9, 0.85)
 theme_override_font_sizes/font_size = 13
@@ -147,32 +182,105 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = -65.0
-offset_right = 160.0
-offset_bottom = 65.0
+offset_left = -180.0
+offset_top = -85.0
+offset_right = 180.0
+offset_bottom = 85.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gameover_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GameOverPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 22
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverPanel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.45, 0.45, 1)
+theme_override_font_sizes/font_size = 26
+text = "DEFEAT"
+horizontal_alignment = 1
 
 [node name="GameOverLabel" type="Label" parent="CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Humans reached the alien base!"
 horizontal_alignment = 1
 
-[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer"]
+[node name="ButtonRow" type="HBoxContainer" parent="CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer/ButtonRow"]
+custom_minimum_size = Vector2(130, 40)
 layout_mode = 2
 text = "Play Again"
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer/ButtonRow"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+text = "Main Menu"
+
+[node name="WinPanel" type="PanelContainer" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -85.0
+offset_right = 180.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_win_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/WinPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 22
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/WinPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="WinTitleLabel" type="Label" parent="CanvasLayer/WinPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.96, 0.58, 1)
+theme_override_font_sizes/font_size = 28
+text = "VICTORY!"
+horizontal_alignment = 1
+
+[node name="WinBodyLabel" type="Label" parent="CanvasLayer/WinPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "All invading humans were stopped!"
+horizontal_alignment = 1
+
+[node name="ButtonRow" type="HBoxContainer" parent="CanvasLayer/WinPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="CanvasLayer/WinPanel/MarginContainer/VBoxContainer/ButtonRow"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+text = "Play Again"
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/WinPanel/MarginContainer/VBoxContainer/ButtonRow"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+text = "Main Menu"
 
 [node name="EnergyManager" type="Node" parent="." unique_id=1556433249]
 script = ExtResource("7_jw32o")
