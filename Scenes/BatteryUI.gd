@@ -27,7 +27,7 @@ func _ready() -> void:
 
 func _on_energy_changed(new_amount: int) -> void:
 	# Update the numerical counter
-	energy_label.text = "Battery: %d / %d" % [
+	energy_label.text = "Scrollium: %d / %d" % [
 		new_amount,
 		energy_manager.max_energy
 	]

@@ -17,7 +17,7 @@ func setup(data: PlantData) -> void:
 	if name_label != null:
 		name_label.text = plant_data.plant_name
 	if cost_label != null:
-		cost_label.text = "%d Energy" % plant_data.plant_cost
+		cost_label.text = "%d Scrollium" % plant_data.plant_cost
 
 
 func update_state(current_energy: int, selected_plant: PlantData) -> void:

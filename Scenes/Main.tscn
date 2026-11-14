@@ -140,7 +140,7 @@ script = ExtResource("7_bmxlf")
 [node name="EnergyLabel" type="Label" parent="CanvasLayer/Control/BatteryPanel/MarginContainer/BatteryUI" unique_id=1618361042]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Battery: 50 / 1000"
+text = "Scrollium: 50 / 1000"
 
 [node name="EnergyBar" type="ProgressBar" parent="CanvasLayer/Control/BatteryPanel/MarginContainer/BatteryUI" unique_id=1284988184]
 custom_minimum_size = Vector2(204, 22)
@@ -172,7 +172,7 @@ mouse_filter = 2
 theme_override_colors/font_color = Color(0.8, 0.86, 0.9, 0.85)
 theme_override_font_sizes/font_size = 13
 text = "Click a card, then click a grid tile.
-Right-click to cancel. Click orbs for energy."
+Right-click to cancel. Click orbs for Scrollium."
 
 [node name="GameOverPanel" type="PanelContainer" parent="CanvasLayer"]
 process_mode = 3
@@ -264,7 +264,7 @@ horizontal_alignment = 1
 
 [node name="WinBodyLabel" type="Label" parent="CanvasLayer/WinPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "All invading humans were stopped!"
+text = "The Cephari gathered enough Scrollium and stopped the human invasion!"
 horizontal_alignment = 1
 
 [node name="ButtonRow" type="HBoxContainer" parent="CanvasLayer/WinPanel/MarginContainer/VBoxContainer"]

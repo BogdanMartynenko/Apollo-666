@@ -69,8 +69,10 @@ func _toggle_plant_selection(data: PlantData) -> void:
 		selector.select_plant(data)
 
 
-func _on_energy_changed(_new_amount: int) -> void:
+func _on_energy_changed(new_amount: int) -> void:
 	_refresh_shop_ui()
+	if energy_manager != null and new_amount >= energy_manager.max_energy:
+		_on_all_enemies_defeated()
 
 
 func _on_selection_changed(_plant_data: PlantData) -> void:

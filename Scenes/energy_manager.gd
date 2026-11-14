@@ -26,7 +26,7 @@ func add_energy(amount: int) -> void:
 	# Don't allow the battery to exceed its capacity
 	current_energy = min(current_energy, max_energy)
 
-	print("Battery energy: ", current_energy, " / ", max_energy)
+	print("Scrollium: ", current_energy, " / ", max_energy)
 
 	# Notify other systems that the energy changed
 	energy_changed.emit(current_energy)
@@ -37,7 +37,7 @@ func spend_energy(amount: int) -> bool:
 
 	# Check whether the player has enough energy
 	if amount > current_energy:
-		print("Not enough energy!")
+		print("Not enough Scrollium!")
 		return false
 
 	if amount <= 0:
@@ -45,7 +45,7 @@ func spend_energy(amount: int) -> bool:
 
 	current_energy -= amount
 
-	print("Battery energy: ", current_energy, " / ", max_energy)
+	print("Scrollium: ", current_energy, " / ", max_energy)
 
 	energy_changed.emit(current_energy)
 
