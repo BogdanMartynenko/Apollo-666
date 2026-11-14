@@ -1,6 +1,6 @@
 extends Control
 
-@export var crawl_speed: float = 18.5
+@export var crawl_speed: float = 24.0
 @export var music_start_offset: float = 28.75
 @export var music_end_time: float = 103.5
 
