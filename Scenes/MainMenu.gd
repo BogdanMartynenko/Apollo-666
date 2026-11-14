@@ -4,6 +4,7 @@ extends Control
 
 
 func _ready() -> void:
+	Engine.time_scale = 1.0
 	get_tree().paused = false
 	play_button.pressed.connect(_on_play_pressed)
 

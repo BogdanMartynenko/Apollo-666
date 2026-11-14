@@ -14,11 +14,17 @@ extends Node2D
 # Plant resources
 @export var peashooter_data: PlantData
 @export var sunflower_data: PlantData
+@export_range(0.25, 4.0, 0.05) var game_speed: float = 1.4:
+	set(value):
+		game_speed = maxf(value, 0.1)
+		if is_inside_tree():
+			Engine.time_scale = game_speed
 
 var _game_ended: bool = false
 
 
 func _ready() -> void:
+	Engine.time_scale = game_speed
 	peashooter_button.setup(peashooter_data)
 	sunflower_button.setup(sunflower_data)
 
@@ -41,6 +47,10 @@ func _ready() -> void:
 		game_over_menu_button.pressed.connect(_on_main_menu_pressed)
 
 	_refresh_shop_ui()
+
+
+func _exit_tree() -> void:
+	Engine.time_scale = 1.0
 
 
 func _on_peashooter_button_pressed() -> void:
@@ -81,6 +91,7 @@ func _on_enemy_breached() -> void:
 	if _game_ended:
 		return
 	_game_ended = true
+	Engine.time_scale = 1.0
 	if grid_manager != null:
 		grid_manager.clear_selection()
 	if game_over_panel != null:
@@ -92,6 +103,7 @@ func _on_scrollium_full() -> void:
 	if _game_ended:
 		return
 	_game_ended = true
+	Engine.time_scale = 1.0
 	if grid_manager != null:
 		grid_manager.clear_selection()
 	call_deferred("_go_to_victory_screen")

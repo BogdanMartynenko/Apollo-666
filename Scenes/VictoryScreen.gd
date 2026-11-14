@@ -11,6 +11,7 @@ var _transitioning: bool = false
 
 
 func _ready() -> void:
+	Engine.time_scale = 1.0
 	get_tree().paused = false
 	_play_victory_sound_once()
 
