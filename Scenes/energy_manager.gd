@@ -5,7 +5,7 @@ extends Node
 signal energy_changed(new_amount: int)
 
 # Battery settings
-@export var max_energy: int = 1000
+@export var max_energy: int = 500
 
 # Current energy stored in the battery (starts with 50 like PvZ)
 @export var current_energy: int = 50
