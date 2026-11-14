@@ -13,8 +13,8 @@ signal selection_changed(plant_data: PlantData)
 const ROWS: int = 5
 const COLUMNS: int = 9
 
-const CELL_SIZE: Vector2 = Vector2(80, 100)
-const GRID_ORIGIN: Vector2 = Vector2(100, 100)
+const CELL_SIZE: Vector2 = Vector2(75.28, 101.1)
+const GRID_ORIGIN: Vector2 = Vector2(106.4, 98.1)
 
 
 # The plant currently selected by the player
@@ -30,33 +30,16 @@ func _ready() -> void:
 	queue_redraw()
 
 
-# DRAW THE GRID
+# DRAW HOVER HIGHLIGHT OVER ARENA GRID
 func _draw() -> void:
-
-	for row in range(ROWS):
-		for column in range(COLUMNS):
-
-			var cell := Rect2(
-				GRID_ORIGIN + Vector2(column, row) * CELL_SIZE,
-				CELL_SIZE
-			)
-
-			var color = Color(0.35, 0.65, 0.25)
-
-			if (row + column) % 2 == 0:
-				color = Color(0.40, 0.72, 0.30)
-
-			draw_rect(cell, color, true)
-			draw_rect(cell, Color(0.15, 0.35, 0.12), false, 2.0)
-
 	if selected_plant != null and is_cell_valid(_hovered_cell):
 		var hover_rect := Rect2(
 			GRID_ORIGIN + Vector2(_hovered_cell.x, _hovered_cell.y) * CELL_SIZE,
 			CELL_SIZE
 		)
 		var cell_free := not occupied_cells.has(_hovered_cell) or not is_instance_valid(occupied_cells[_hovered_cell])
-		var hover_color := Color(0.7, 1.0, 0.55, 0.28) if cell_free else Color(1.0, 0.3, 0.3, 0.32)
-		var border_color := Color(0.85, 1.0, 0.7, 0.9) if cell_free else Color(1.0, 0.4, 0.4, 0.9)
+		var hover_color := Color(0.45, 0.95, 0.85, 0.25) if cell_free else Color(1.0, 0.3, 0.3, 0.32)
+		var border_color := Color(0.55, 1.0, 0.9, 0.9) if cell_free else Color(1.0, 0.4, 0.4, 0.9)
 		draw_rect(hover_rect, hover_color, true)
 		draw_rect(hover_rect, border_color, false, 3.0)
 

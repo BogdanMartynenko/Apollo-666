@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Scenes/EnemySpawner.gd" id="11_espawn"]
 [ext_resource type="PackedScene" path="res://Scenes/HumanEnemy.tscn" id="12_human"]
 [ext_resource type="PackedScene" path="res://Scenes/ShopCard.tscn" id="13_card"]
+[ext_resource type="Texture2D" path="res://Assets/arena.png" id="14_arena"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud_panel"]
 bg_color = Color(0.08, 0.11, 0.14, 0.92)
@@ -75,6 +76,12 @@ sunflower_data = ExtResource("3_v1gob")
 
 [node name="Selector" type="Node" parent="." unique_id=1406873487]
 script = ExtResource("3_xockq")
+
+[node name="ArenaBackground" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.768512, 0.821293)
+texture = ExtResource("14_arena")
+centered = false
 
 [node name="GridManager" type="Node2D" parent="." unique_id=1499261951]
 script = ExtResource("2_ikv8c")
