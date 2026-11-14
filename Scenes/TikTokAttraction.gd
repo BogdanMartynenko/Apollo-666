@@ -1,7 +1,7 @@
 extends PlantBase
 
 # How long (in seconds) this attraction stops humans once triggered
-@export var stop_duration: float = 12.0
+@export var stop_duration: float = 7.0
 
 var _activated: bool = false
 var _remaining_time: float = 0.0

@@ -136,7 +136,7 @@ script = ExtResource("7_bmxlf")
 [node name="EnergyLabel" type="Label" parent="CanvasLayer/Control/BatteryPanel/MarginContainer/BatteryUI" unique_id=1618361042]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Scrollium: 50 / 500"
+text = "Scrollium: 50 / 700"
 
 [node name="EnergyBar" type="ProgressBar" parent="CanvasLayer/Control/BatteryPanel/MarginContainer/BatteryUI" unique_id=1284988184]
 custom_minimum_size = Vector2(204, 22)
@@ -144,7 +144,7 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_bar_fill")
-max_value = 500.0
+max_value = 700.0
 show_percentage = false
 
 [node name="GameOverPanel" type="PanelContainer" parent="CanvasLayer"]
