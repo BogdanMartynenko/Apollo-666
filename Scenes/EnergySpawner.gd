@@ -5,9 +5,9 @@ extends Node
 @export var energy_orb_scene: PackedScene
 
 # Time between spawning energy orbs
-@export var spawn_interval: float = 3.0
+@export var spawn_interval: float = 1.8
 
-var time_since_last_spawn: float = 0.0
+var time_since_last_spawn: float = 1.2
 
 # Find the EnergyManager node
 @onready var energy_manager = get_parent().get_node("EnergyManager")
