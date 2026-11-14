@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/HumanEnemy.tscn" id="12_human"]
 [ext_resource type="PackedScene" path="res://Scenes/ShopCard.tscn" id="13_card"]
 [ext_resource type="Texture2D" path="res://Assets/arena.png" id="14_arena"]
+[ext_resource type="AudioStream" path="res://Music/F-777 - Space Battle - (original Kbps).mp3" id="15_battle_music"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud_panel"]
 bg_color = Color(0.08, 0.11, 0.14, 0.92)
@@ -210,3 +211,6 @@ energy_orb_scene = ExtResource("9_bmxlf")
 [node name="EnemySpawner" type="Node" parent="."]
 script = ExtResource("11_espawn")
 enemy_scene = ExtResource("12_human")
+
+[node name="BattleMusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_battle_music")

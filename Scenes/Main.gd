@@ -10,6 +10,7 @@ extends Node2D
 @onready var game_over_panel = $CanvasLayer/GameOverPanel
 @onready var restart_button = $CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer/ButtonRow/RestartButton
 @onready var game_over_menu_button = $CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer/ButtonRow/MainMenuButton
+@onready var battle_music_player: AudioStreamPlayer = $BattleMusicPlayer
 
 # Plant resources
 @export var peashooter_data: PlantData
@@ -47,10 +48,25 @@ func _ready() -> void:
 		game_over_menu_button.pressed.connect(_on_main_menu_pressed)
 
 	_refresh_shop_ui()
+	_start_battle_music()
 
 
 func _exit_tree() -> void:
 	Engine.time_scale = 1.0
+	_stop_battle_music()
+
+
+func _start_battle_music() -> void:
+	if battle_music_player == null or battle_music_player.stream == null:
+		return
+	if battle_music_player.stream is AudioStreamMP3:
+		battle_music_player.stream.loop = true
+	battle_music_player.play()
+
+
+func _stop_battle_music() -> void:
+	if battle_music_player != null:
+		battle_music_player.stop()
 
 
 func _on_peashooter_button_pressed() -> void:
@@ -92,6 +108,7 @@ func _on_enemy_breached() -> void:
 		return
 	_game_ended = true
 	Engine.time_scale = 1.0
+	_stop_battle_music()
 	if grid_manager != null:
 		grid_manager.clear_selection()
 	if game_over_panel != null:
@@ -104,6 +121,7 @@ func _on_scrollium_full() -> void:
 		return
 	_game_ended = true
 	Engine.time_scale = 1.0
+	_stop_battle_music()
 	if grid_manager != null:
 		grid_manager.clear_selection()
 	call_deferred("_go_to_victory_screen")
