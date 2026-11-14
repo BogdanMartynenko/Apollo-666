@@ -4,11 +4,8 @@ const EnemyBaseScript = preload("res://Framework/Classes/EnemyBase.gd")
 const GridManagerScript = preload("res://Framework/Managers/GridManager.gd")
 
 signal enemy_breached
-signal all_enemies_defeated
-signal wave_progress_changed(defeated_count: int, total_count: int)
 
 @export var enemy_scene: PackedScene
-@export var total_enemies_to_spawn: int = 12
 @export var initial_delay: float = 8.0
 @export var start_spawn_interval: float = 9.0
 @export var min_spawn_interval: float = 4.0
@@ -22,22 +19,15 @@ var _spawn_timer: float = 0.0
 var _current_interval: float = 9.0
 var _has_started_spawning: bool = false
 var _last_lane: int = -1
-var _spawned_count: int = 0
-var _defeated_count: int = 0
-var _active_enemies: int = 0
 var _breached: bool = false
 
 
 func _ready() -> void:
 	_current_interval = start_spawn_interval
-	wave_progress_changed.emit(_defeated_count, total_enemies_to_spawn)
 
 
 func _process(delta: float) -> void:
 	if enemy_scene == null or _breached:
-		return
-
-	if _spawned_count >= total_enemies_to_spawn:
 		return
 
 	_elapsed += delta
@@ -57,9 +47,6 @@ func _process(delta: float) -> void:
 
 
 func spawn_enemy() -> void:
-	if _spawned_count >= total_enemies_to_spawn:
-		return
-
 	var rows: int = grid_manager.ROWS if grid_manager != null else 5
 	var lane := _pick_lane(rows)
 
@@ -73,11 +60,7 @@ func spawn_enemy() -> void:
 
 	enemy.lane = lane
 	enemy.base_breach_x = breach_x
-	enemy.died.connect(_on_enemy_died)
 	enemy.reached_base.connect(_on_enemy_reached_base)
-
-	_spawned_count += 1
-	_active_enemies += 1
 
 	get_parent().add_child(enemy)
 	enemy.global_position = Vector2(spawn_x, spawn_y)
@@ -93,17 +76,7 @@ func _pick_lane(rows: int) -> int:
 	return lane
 
 
-func _on_enemy_died(_enemy: Area2D) -> void:
-	_active_enemies = maxi(0, _active_enemies - 1)
-	_defeated_count += 1
-	wave_progress_changed.emit(_defeated_count, total_enemies_to_spawn)
-
-	if not _breached and _spawned_count >= total_enemies_to_spawn and _active_enemies == 0:
-		all_enemies_defeated.emit()
-
-
 func _on_enemy_reached_base(_enemy: Area2D) -> void:
-	_active_enemies = maxi(0, _active_enemies - 1)
 	if _breached:
 		return
 	_breached = true

@@ -158,23 +158,12 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_bar_fill")
 max_value = 1000.0
 show_percentage = false
 
-[node name="WaveLabel" type="Label" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_left = 836.0
-offset_top = 12.0
-offset_right = 1130.0
-offset_bottom = 36.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.95, 0.85, 0.35, 1)
-theme_override_font_sizes/font_size = 15
-text = "Humans Defeated: 0 / 12"
-
 [node name="HintLabel" type="Label" parent="CanvasLayer/Control"]
 layout_mode = 0
 offset_left = 836.0
-offset_top = 40.0
+offset_top = 24.0
 offset_right = 1130.0
-offset_bottom = 88.0
+offset_bottom = 74.0
 mouse_filter = 2
 theme_override_colors/font_color = Color(0.8, 0.86, 0.9, 0.85)
 theme_override_font_sizes/font_size = 13

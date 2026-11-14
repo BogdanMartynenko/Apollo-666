@@ -6,7 +6,6 @@ extends Node2D
 @onready var energy_manager = $EnergyManager
 @onready var peashooter_button = $CanvasLayer/Control/ShopPanel/MarginContainer/HBoxContainer/PeashooterButton
 @onready var sunflower_button = $CanvasLayer/Control/ShopPanel/MarginContainer/HBoxContainer/SunflowerButton
-@onready var wave_label = $CanvasLayer/Control/WaveLabel
 @onready var enemy_spawner = $EnemySpawner
 @onready var game_over_panel = $CanvasLayer/GameOverPanel
 @onready var restart_button = $CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer/ButtonRow/RestartButton
@@ -36,9 +35,6 @@ func _ready() -> void:
 
 	if enemy_spawner != null:
 		enemy_spawner.enemy_breached.connect(_on_enemy_breached)
-		enemy_spawner.all_enemies_defeated.connect(_on_all_enemies_defeated)
-		enemy_spawner.wave_progress_changed.connect(_on_wave_progress_changed)
-		_on_wave_progress_changed(0, enemy_spawner.total_enemies_to_spawn)
 
 	if restart_button != null:
 		restart_button.pressed.connect(_on_restart_pressed)
@@ -72,16 +68,11 @@ func _toggle_plant_selection(data: PlantData) -> void:
 func _on_energy_changed(new_amount: int) -> void:
 	_refresh_shop_ui()
 	if energy_manager != null and new_amount >= energy_manager.max_energy:
-		_on_all_enemies_defeated()
+		_on_scrollium_full()
 
 
 func _on_selection_changed(_plant_data: PlantData) -> void:
 	_refresh_shop_ui()
-
-
-func _on_wave_progress_changed(defeated_count: int, total_count: int) -> void:
-	if wave_label != null:
-		wave_label.text = "Humans Defeated: %d / %d" % [defeated_count, total_count]
 
 
 func _refresh_shop_ui() -> void:
@@ -101,7 +92,7 @@ func _on_enemy_breached() -> void:
 	get_tree().paused = true
 
 
-func _on_all_enemies_defeated() -> void:
+func _on_scrollium_full() -> void:
 	if game_over_panel != null and game_over_panel.visible:
 		return
 	if grid_manager != null:
