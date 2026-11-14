@@ -5,7 +5,7 @@ extends Node
 @export var energy_orb_scene: PackedScene
 
 # Time between spawning energy orbs
-@export var spawn_interval: float = 7.0
+@export var spawn_interval: float = 4.0
 
 var time_since_last_spawn: float = 0.0
 
