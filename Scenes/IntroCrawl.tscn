@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://Scenes/IntroCrawl.gd" id="1_intro"]
+[ext_resource type="AudioStream" path="res://Music/Star Wars (1977) original opening crawl - (original Kbps).mp3" id="2_music"]
 
 [sub_resource type="Shader" id="Shader_crawl"]
 code = "shader_type canvas_item;
@@ -52,10 +53,17 @@ render_target_update_mode = 4
 
 [node name="CrawlContent" type="VBoxContainer" parent="SubViewportContainer/SubViewport"]
 offset_left = 186.0
-offset_top = 590.0
+offset_top = 560.0
 offset_right = 966.0
-offset_bottom = 1420.0
-theme_override_constants/separation = 24
+offset_bottom = 1480.0
+theme_override_constants/separation = 22
+
+[node name="TitleLabel" type="Label" parent="SubViewportContainer/SubViewport/CrawlContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.82, 0.18, 1)
+theme_override_font_sizes/font_size = 44
+text = "APOLLO-666"
+horizontal_alignment = 1
 
 [node name="StoryLabel" type="Label" parent="SubViewportContainer/SubViewport/CrawlContent"]
 custom_minimum_size = Vector2(780, 0)
@@ -92,3 +100,6 @@ theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 0.42)
 theme_override_font_sizes/font_size = 14
 text = "Press SPACE to skip"
 horizontal_alignment = 2
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_music")

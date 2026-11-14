@@ -1,8 +1,11 @@
 extends Control
 
-@export var crawl_speed: float = 22.0
+@export var crawl_speed: float = 18.5
+@export var music_start_offset: float = 28.75
+@export var music_end_time: float = 103.5
 
 @onready var crawl_content: VBoxContainer = $SubViewportContainer/SubViewport/CrawlContent
+@onready var music_player: AudioStreamPlayer = $MusicPlayer
 
 var _stars: Array[Vector3] = []
 var _transitioning: bool = false
@@ -12,6 +15,9 @@ func _ready() -> void:
 	get_tree().paused = false
 	_generate_stars()
 	queue_redraw()
+
+	if music_player != null and music_player.stream != null:
+		music_player.play(music_start_offset)
 
 
 func _generate_stars() -> void:
@@ -41,6 +47,12 @@ func _process(delta: float) -> void:
 
 	crawl_content.position.y -= crawl_speed * delta
 
+	if music_player != null and music_player.playing:
+		var pos := music_player.get_playback_position()
+		if pos >= music_end_time - 2.0:
+			var fade := clampf((music_end_time - pos) / 2.0, 0.0, 1.0)
+			music_player.volume_db = linear_to_db(maxf(fade, 0.001))
+
 	if crawl_content.position.y + crawl_content.size.y < 30.0:
 		_start_game()
 
@@ -59,4 +71,6 @@ func _start_game() -> void:
 	if _transitioning:
 		return
 	_transitioning = true
+	if music_player != null:
+		music_player.stop()
 	get_tree().change_scene_to_file("res://Scenes/Main.tscn")
