@@ -8,6 +8,6 @@
 script = ExtResource("3_7vh55")
 plant_name = "TikTok Attraction"
 plant_scene = ExtResource("2_kct1e")
-plant_cost = 50
+plant_cost = 25
 icon = ExtResource("1_tiktok")
 metadata/_custom_type_script = "uid://bt6j81fpb3mr6"
