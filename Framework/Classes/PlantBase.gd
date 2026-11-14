@@ -21,3 +21,13 @@ func take_damage(amount: float) -> void:
 
 func die() -> void:
 	queue_free()
+
+
+func draw_duration_bar(remaining: float, total: float, fill_color: Color) -> void:
+	if total <= 0.0:
+		return
+
+	var ratio := clampf(remaining / total, 0.0, 1.0)
+	var bar_rect := Rect2(-24.0, 35.0, 48.0, 5.0)
+	draw_rect(bar_rect, Color(0.1, 0.1, 0.15, 0.8), true)
+	draw_rect(Rect2(bar_rect.position, Vector2(bar_rect.size.x * ratio, bar_rect.size.y)), fill_color, true)

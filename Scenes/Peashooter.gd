@@ -8,24 +8,38 @@ const ProjectileBaseScript = preload("res://Framework/Classes/ProjectileBase.gd"
 @export var ink_damage: float = 25.0
 @export var projectile_speed: float = 320.0
 @export var detect_max_x: float = 1140.0
+@export var lifetime: float = 25.0
 
 @onready var muzzle: Marker2D = get_node_or_null("Muzzle")
 
 var _fire_cooldown: float = 0.25
+var _remaining_time: float = 0.0
 
 
 func _ready() -> void:
 	life = 100.0
 	life_max = 100.0
+	_remaining_time = lifetime
+	queue_redraw()
 
 
 func _process(delta: float) -> void:
+	_remaining_time = maxf(_remaining_time - delta, 0.0)
+	queue_redraw()
+	if _remaining_time <= 0.0:
+		die()
+		return
+
 	if _fire_cooldown > 0.0:
 		_fire_cooldown = maxf(_fire_cooldown - delta, 0.0)
 
 	if _fire_cooldown <= 0.0 and _has_enemy_in_lane():
 		_shoot_ink()
 		_fire_cooldown = fire_interval
+
+
+func _draw() -> void:
+	draw_duration_bar(_remaining_time, lifetime, Color(0.85, 0.45, 1.0))
 
 
 func _has_enemy_in_lane() -> bool:

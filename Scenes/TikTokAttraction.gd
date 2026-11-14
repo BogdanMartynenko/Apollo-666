@@ -32,10 +32,7 @@ func _process(delta: float) -> void:
 
 
 func _draw() -> void:
-	if not _activated or stop_duration <= 0.0:
+	if not _activated:
 		return
 
-	var ratio := clampf(_remaining_time / stop_duration, 0.0, 1.0)
-	var bar_rect := Rect2(-24.0, 35.0, 48.0, 5.0)
-	draw_rect(bar_rect, Color(0.1, 0.1, 0.15, 0.8), true)
-	draw_rect(Rect2(bar_rect.position, Vector2(bar_rect.size.x * ratio, bar_rect.size.y)), Color(0.15, 0.95, 0.9), true)
+	draw_duration_bar(_remaining_time, stop_duration, Color(0.15, 0.95, 0.9))

@@ -5,7 +5,7 @@ signal died(enemy: Area2D)
 signal reached_base(enemy: Area2D)
 
 @export var life_max: float = 100.0
-@export var move_speed: float = 28.0
+@export var move_speed: float = 40.0
 @export var attack_dps: float = 25.0
 
 var life: float = 100.0
