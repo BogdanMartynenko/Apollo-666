@@ -8,6 +8,6 @@
 script = ExtResource("2_wpq00")
 plant_name = "Octobro"
 plant_scene = ExtResource("2_tiaxo")
-plant_cost = 50
+plant_cost = 100
 icon = ExtResource("1_wpq00")
 metadata/_custom_type_script = "uid://bt6j81fpb3mr6"
