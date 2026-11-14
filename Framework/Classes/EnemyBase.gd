@@ -21,6 +21,23 @@ var _is_dead: bool = false
 func _ready() -> void:
 	life = life_max
 	add_to_group("enemies")
+	queue_redraw()
+
+
+func _draw() -> void:
+	if life_max <= 0.0:
+		return
+
+	var ratio := clampf(life / life_max, 0.0, 1.0)
+	var bar_rect := Rect2(-22.0, -42.0, 44.0, 5.0)
+	var fill_color := Color(0.25, 0.9, 0.35)
+	if ratio <= 0.25:
+		fill_color = Color(0.95, 0.28, 0.28)
+	elif ratio <= 0.5:
+		fill_color = Color(0.95, 0.78, 0.2)
+
+	draw_rect(bar_rect, Color(0.08, 0.08, 0.12, 0.85), true)
+	draw_rect(Rect2(bar_rect.position, Vector2(bar_rect.size.x * ratio, bar_rect.size.y)), fill_color, true)
 
 
 func _physics_process(delta: float) -> void:
@@ -67,6 +84,7 @@ func take_damage(amount: float) -> void:
 
 	life = maxf(life - amount, 0.0)
 	_trigger_hit_flash()
+	queue_redraw()
 
 	if life <= 0.0:
 		die()

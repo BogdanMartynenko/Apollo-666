@@ -4,7 +4,7 @@ const EnemyBaseScript = preload("res://Framework/Classes/EnemyBase.gd")
 const ProjectileBaseScript = preload("res://Framework/Classes/ProjectileBase.gd")
 
 @export var ink_projectile_scene: PackedScene
-@export var fire_interval: float = 1.5
+@export var fire_interval: float = 2.2
 @export var ink_damage: float = 25.0
 @export var projectile_speed: float = 320.0
 @export var detect_max_x: float = 1140.0
